@@ -1,917 +1,1316 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Платформа Перезапуску Чоловічого Служіння</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0b132b;
-            color: #f4f5f7;
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #f43f5e 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: #1c2541;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #3a506b;
-            border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #5bc0be;
-        }
-        .tab-transition {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Братська Спільнота · RechurchKyiv</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --cream: #f7f3ec;
+      --cream-dark: #ede7da;
+      --parchment: #e8dfc9;
+      --navy: #1a2744;
+      --navy-mid: #253457;
+      --navy-light: #3a4f7a;
+      --gold: #a0793a;
+      --gold-light: #c49a52;
+      --gold-pale: #f0e4c8;
+      --charcoal: #2c2c2c;
+      --muted: #7a7060;
+      --muted-light: #a09880;
+      --border: #d8cfba;
+      --white: #ffffff;
+      --red-accent: #8b2a2a;
+      --green-accent: #2a5a3a;
+      --green-pale: #d4e8da;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background-color: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ──────────────────────────────
+       HEADER / NAV
+    ────────────────────────────── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy);
+      border-bottom: 2px solid var(--gold);
+      padding: 0 2rem;
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--gold);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-light);
+      font-size: 0.9rem;
+    }
+    .logo-text {
+      display: flex; flex-direction: column;
+    }
+    .logo-text span:first-child {
+      font-family: 'Playfair Display', Georgia, serif;
+      color: var(--white);
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+    .logo-text span:last-child {
+      color: var(--gold-light);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 0.25rem;
+    }
+    nav a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    nav a:hover { color: var(--gold-light); background: rgba(255,255,255,0.07); }
+
+    /* ──────────────────────────────
+       HERO
+    ────────────────────────────── */
+    .hero {
+      background: var(--navy);
+      padding: 5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse 700px 500px at 80% 50%, rgba(160,121,58,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 300px at 10% 80%, rgba(58,79,122,0.4) 0%, transparent 70%);
+    }
+    /* decorative cross watermark */
+    .hero::after {
+      content: '✝';
+      position: absolute;
+      right: 3rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18rem;
+      color: rgba(255,255,255,0.025);
+      pointer-events: none;
+      line-height: 1;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1.5rem;
+      padding: 0.35rem 0.75rem;
+      border: 1px solid rgba(160,121,58,0.4);
+      border-radius: 4px;
+      background: rgba(160,121,58,0.08);
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.18;
+      max-width: 640px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .hero-subtitle {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.65);
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+    .hero-goals {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      max-width: 880px;
+    }
+    .hero-goal-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-top: 2px solid var(--gold);
+      border-radius: 8px;
+      padding: 1.25rem 1.25rem 1.1rem;
+      transition: background 0.2s;
+    }
+    .hero-goal-card:hover { background: rgba(255,255,255,0.09); }
+    .hero-goal-card .goal-icon {
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      background: rgba(160,121,58,0.18);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-light);
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+    .hero-goal-card h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.35rem;
+    }
+    .hero-goal-card p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.55;
+      font-weight: 300;
+    }
+
+    /* ──────────────────────────────
+       SECTION COMMON
+    ────────────────────────────── */
+    .section {
+      padding: 5rem 2rem;
+    }
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.63rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px; height: 1px;
+      background: var(--gold);
+    }
+    .section-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+    .section-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    /* ──────────────────────────────
+       РОЗДІЛ 1: ЦІЛІ
+    ────────────────────────────── */
+    .goals-section { background: var(--cream); }
+
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .goal-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem 1.75rem;
+      position: relative;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .goal-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(26,39,68,0.1);
+    }
+    .goal-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 1.5rem; bottom: 1.5rem;
+      width: 3px;
+      border-radius: 0 2px 2px 0;
+      background: var(--gold);
+    }
+    .goal-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--gold-pale);
+      line-height: 1;
+      margin-bottom: 0.75rem;
+      user-select: none;
+    }
+    .goal-card h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+    .goal-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ──────────────────────────────
+       РОЗДІЛ 2: МЕТОДИ
+    ────────────────────────────── */
+    .methods-section { background: var(--navy); }
+    .methods-section .section-title { color: var(--white); }
+    .methods-section .section-desc { color: rgba(255,255,255,0.5); }
+
+    .methods-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .method-tab {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 0.5rem 1.1rem;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .method-tab:hover { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.3); }
+    .method-tab.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--navy);
+      font-weight: 600;
+    }
+
+    .method-panels { position: relative; }
+    .method-panel { display: none; }
+    .method-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    @media (max-width: 680px) {
+      .method-panel.active { grid-template-columns: 1fr; }
+    }
+    .method-main {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 2rem;
+    }
+    .method-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.63rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .badge-actions { background: rgba(160,121,58,0.2); color: var(--gold-light); }
+    .badge-mind { background: rgba(100,120,180,0.2); color: #9aaee8; }
+    .badge-heart { background: rgba(100,160,120,0.2); color: #80c8a0; }
+
+    .method-main h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      margin-bottom: 0.6rem;
+    }
+    .method-main .method-essence {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.25rem;
+      font-style: italic;
+    }
+    .method-main p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+    }
+
+    .method-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .method-detail-item {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+    }
+    .method-detail-item h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.4rem;
+    }
+    .method-detail-item p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* ──────────────────────────────
+       РОЗДІЛ 3: ІНСТРУМЕНТИ (4-П)
+    ────────────────────────────── */
+    .instruments-section { background: var(--cream-dark); }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+    .principle-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .principle-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(26,39,68,0.1);
+    }
+    .p-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--navy);
+      opacity: 0.06;
+      position: absolute;
+      right: 1rem;
+      top: 0.5rem;
+      line-height: 1;
+      user-select: none;
+    }
+    .p-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.65rem;
+      background: var(--navy);
+      color: var(--gold-light);
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .principle-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+    .principle-card p {
+      font-size: 0.81rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* Правила регламенту */
+    .rules-block {
+      background: var(--navy);
+      border-radius: 16px;
+      padding: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    .rules-block-header {
+      grid-column: 1 / -1;
+      margin-bottom: 0.5rem;
+    }
+    .rules-block-header h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--white);
+      font-size: 1.3rem;
+      margin-bottom: 0.25rem;
+    }
+    .rules-block-header p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.45);
+    }
+    .rule-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .rule-icon {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(160,121,58,0.18);
+      border: 1px solid rgba(160,121,58,0.3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold-light);
+      font-size: 0.8rem;
+    }
+    .rule-item h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.3rem;
+    }
+    .rule-item p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.55;
+    }
+
+    /* ──────────────────────────────
+       РОЗДІЛ 4: 6 КРОКІВ
+    ────────────────────────────── */
+    .steps-section { background: var(--cream); }
+
+    .steps-flow {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .step-row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0 1.5rem;
+      position: relative;
+    }
+    .step-connector {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 0.35rem;
+    }
+    .step-num-circle {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .step-num-circle.active {
+      background: var(--navy);
+      color: var(--gold-light);
+      border: 2px solid var(--gold);
+    }
+    .step-num-circle.pending {
+      background: var(--white);
+      color: var(--muted-light);
+      border: 2px solid var(--border);
+    }
+    .step-line {
+      width: 2px;
+      flex: 1;
+      background: var(--border);
+      min-height: 1.5rem;
+    }
+    .step-row:last-child .step-line { display: none; }
+
+    .step-content {
+      padding-bottom: 2.5rem;
+      padding-top: 0.25rem;
+    }
+    .step-content .step-status {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.35rem;
+    }
+    .step-content .step-status.pending-text { color: var(--muted-light); }
+    .step-content h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+    .step-content h3:hover { color: var(--gold); }
+    .step-content .step-summary {
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+    .step-details-block {
+      display: none;
+      margin-top: 1rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+    }
+    .step-details-block.open { display: block; }
+    .step-details-block ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .step-details-block li {
+      display: flex;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .step-details-block li::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+      font-weight: 700;
+    }
+    .step-note {
+      margin-top: 1rem;
+      background: var(--gold-pale);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-size: 0.78rem;
+      color: var(--charcoal);
+      font-style: italic;
+    }
+
+    /* ──────────────────────────────
+       РОЗДІЛ 5: БЕЗПЕКА (КОМПАКТНО)
+    ────────────────────────────── */
+    .safety-section { background: var(--parchment); }
+
+    .safety-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .safety-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      position: relative;
+    }
+    .safety-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--gold-light);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 0.85rem;
+    }
+    .safety-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.98rem;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+    .safety-card p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Vision block */
+    .vision-block {
+      background: var(--navy);
+      border-radius: 14px;
+      padding: 2.5rem 3rem;
+      margin-top: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    @media (max-width: 680px) {
+      .vision-block { grid-template-columns: 1fr; padding: 1.75rem 1.5rem; gap: 1.5rem; }
+    }
+    .vision-block::before {
+      content: '✕';
+      font-family: 'Playfair Display', serif;
+      font-size: 20rem;
+      color: rgba(255,255,255,0.02);
+      position: absolute;
+      right: -1rem;
+      bottom: -3rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .vision-block-left { position: relative; z-index: 1; }
+    .vision-block-left .vision-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .vision-block-left h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+    .vision-block-left h3 em { color: var(--gold-light); font-style: italic; }
+    .vision-block-left p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+    .vision-block-right { position: relative; z-index: 1; }
+    .dgroup-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .dgroup-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-left: 2px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 0.9rem 1rem;
+    }
+    .dgroup-card h4 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.3rem;
+    }
+    .dgroup-card p {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+
+    /* ──────────────────────────────
+       FOOTER
+    ────────────────────────────── */
+    footer {
+      background: var(--navy);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    footer p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+    }
+    footer strong {
+      display: block;
+      color: var(--gold-light);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* ──────────────────────────────
+       DIVIDERS
+    ────────────────────────────── */
+    .gold-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .gold-divider hr {
+      flex: 1;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+    .gold-divider span {
+      color: var(--gold);
+      font-size: 0.7rem;
+    }
+
+    /* ──────────────────────────────
+       MOBILE
+    ────────────────────────────── */
+    @media (max-width: 768px) {
+      header { padding: 0 1rem; }
+      nav { display: none; }
+      .hero { padding: 3.5rem 1.25rem 3rem; }
+      .hero::after { display: none; }
+      .section { padding: 3.5rem 1.25rem; }
+      .rules-block { padding: 1.75rem 1.25rem; }
+      .step-row { grid-template-columns: 56px 1fr; }
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col custom-scrollbar">
+<body>
 
-<header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur-md sticky top-0 z-50 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-            <div class="bg-indigo-600/20 text-indigo-400 p-2 rounded-xl border border-indigo-500/30">
-                <i class="fa-solid fa-users-rectangle text-xl"></i>
-            </div>
-            <div>
-                <span class="text-xs text-indigo-400 font-bold tracking-wider uppercase block leading-none">Проєкт 45</span>
-                <span class="text-sm font-bold text-slate-100 uppercase tracking-tight">Чоловіче Служіння</span>
-            </div>
-        </div>
-        
-        <!-- Десктопне меню -->
-        <nav class="hidden md:flex space-x-1">
-            <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-3 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider tab-transition text-indigo-400 bg-slate-800/80 border border-indigo-500/30">
-                <i class="fa-solid fa-chart-line mr-1"></i> Концепція & Шлях
-            </button>
-            <button onclick="switchTab('cmi')" id="nav-cmi" class="px-3 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider tab-transition text-slate-400 hover:text-slate-100 hover:bg-slate-800">
-                <i class="fa-solid fa-compass mr-1"></i> Структура Ц-М-І
-            </button>
-            <button onclick="switchTab('safety')" id="nav-safety" class="px-3 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider tab-transition text-slate-400 hover:text-slate-100 hover:bg-slate-800">
-                <i class="fa-solid fa-shield-halved mr-1"></i> Безпека (Веслі/Кларк)
-            </button>
-            <button onclick="switchTab('playbook')" id="nav-playbook" class="px-3 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider tab-transition text-slate-400 hover:text-slate-100 hover:bg-slate-800">
-                <i class="fa-solid fa-book-open mr-1"></i> Плейбук & KPI
-            </button>
-            <button onclick="switchTab('survey')" id="nav-survey" class="px-3 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider tab-transition text-slate-400 hover:text-slate-100 hover:bg-slate-800">
-                <i class="fa-solid fa-clipboard-question mr-1"></i> Симулятор Анкет
-            </button>
-        </nav>
-
-        <!-- Статус-індикатор богословської чистоти -->
-        <div class="flex items-center space-x-2 bg-emerald-950/60 border border-emerald-500/30 px-3 py-1.5 rounded-full" title="Рішення пройшли перевірку на відповідність біблійним засадам та протестантській етиці">
-            <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span class="text-[10px] uppercase font-bold tracking-widest text-emerald-400">Богословський фільтр: OK</span>
-        </div>
+<!-- ════════════════════════════════
+     HEADER
+════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon"><i class="fa-solid fa-cross"></i></div>
+      <div class="logo-text">
+        <span>Братська Спільнота</span>
+        <span>RechurchKyiv</span>
+      </div>
     </div>
+    <nav>
+      <a href="#goals">Цілі</a>
+      <a href="#methods">Методи</a>
+      <a href="#instruments">Принципи</a>
+      <a href="#steps">Кроки</a>
+      <a href="#safety">Безпека</a>
+    </nav>
+  </div>
 </header>
 
-<div class="md:hidden sticky top-16 bg-slate-900 border-b border-slate-800 z-40 px-2 py-2 flex items-center justify-between overflow-x-auto scrollbar-none gap-2">
-    <button onclick="switchTab('dashboard')" id="mob-nav-dashboard" class="flex-shrink-0 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider text-indigo-400 bg-slate-800/80">Шлях</button>
-    <button onclick="switchTab('cmi')" id="mob-nav-cmi" class="flex-shrink-0 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider text-slate-400">Ц-М-І</button>
-    <button onclick="switchTab('safety')" id="mob-nav-safety" class="flex-shrink-0 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider text-slate-400">Безпека</button>
-    <button onclick="switchTab('playbook')" id="mob-nav-playbook" class="flex-shrink-0 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider text-slate-400">Плейбук & KPI</button>
-    <button onclick="switchTab('survey')" id="mob-nav-survey" class="flex-shrink-0 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider text-slate-400">Анкета</button>
-</div>
-
-<main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-    <!-- TAB 1: DASHBOARD (OVERVIEW & ROADMAP) -->
-    <section id="tab-dashboard" class="space-y-10">
-        <!-- Вступний блок -->
-        <div class="bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl relative overflow-hidden">
-            <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl"></div>
-            <div class="absolute -left-20 -top-20 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
-            
-            <div class="relative z-10 max-w-3xl space-y-4">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
-                    <i class="fa-solid fa-rocket mr-1.5"></i> Системний Перезапуск
-                </span>
-                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
-                    Перехід від Інтуїтивного до <span class="gradient-text">Системного Служіння</span>
-                </h1>
-                <p class="text-sm sm:text-base text-slate-400 leading-relaxed">
-                    Для 45 братів у нашій церкві ми створюємо не просто черговий розклад зустрічей, а 
-                    <strong class="text-slate-200">екосистему духовного відновлення та пастирського супроводу</strong>. 
-                    Ми перезапускаємо формат із 4–5 відвідувачів до повного залучення братства через 4 принципи психологічної безпеки та структуроване делегування.
-                </p>
-                
-                <div class="pt-4 flex flex-wrap gap-4">
-                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex items-center space-x-3 w-60">
-                        <span class="text-3xl font-extrabold text-indigo-400">45</span>
-                        <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Братів у базі для системної турботи</span>
-                    </div>
-                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex items-center space-x-3 w-60">
-                        <span class="text-3xl font-extrabold text-emerald-400">90'</span>
-                        <span class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Залізний регламент поваги до родин</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ІНТЕРАКТИВНА ДОРОЖНЯ КАРТА (Steps 1-6) -->
-        <div class="space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h2 class="text-2xl font-extrabold tracking-tight text-slate-100">6 Кроків Системного Розвитку</h2>
-                    <p class="text-xs text-slate-400">Натисніть на кожен крок, щоб розгорнути детальну дорожню інструкцію</p>
-                </div>
-                <div class="flex items-center space-x-2 bg-slate-900 border border-slate-800 p-1.5 rounded-xl self-start">
-                    <span class="text-xs font-semibold px-2 text-slate-400">Прогрес:</span>
-                    <span class="text-xs font-bold text-indigo-400 bg-indigo-950 border border-indigo-800/50 px-2 py-0.5 rounded-lg">Крок 1 & 2 в роботі</span>
-                </div>
-            </div>
-
-            <!-- Сітка Кроків (Інтерактивна) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- КРОК 1 -->
-                <div onclick="toggleStepDetails(1)" id="step-card-1" class="bg-slate-900 border border-indigo-500/40 hover:border-indigo-400 rounded-2xl p-5 cursor-pointer transition-all duration-300 relative overflow-hidden shadow-lg group">
-                    <div class="absolute top-0 right-0 bg-indigo-600/20 text-indigo-400 px-3 py-1 text-xs font-bold rounded-bl-xl border-l border-b border-indigo-500/20">В РОБОТІ</div>
-                    <div class="space-y-3">
-                        <div class="text-slate-400 font-extrabold text-xs tracking-wider uppercase">КРОК 1</div>
-                        <div class="flex items-center space-x-2">
-                            <span class="p-1.5 bg-indigo-500/10 text-indigo-400 rounded-lg"><i class="fa-solid fa-ear-listening"></i></span>
-                            <h3 class="font-bold text-slate-100 group-hover:text-indigo-400 transition-colors">Слухання серця (Опитування)</h3>
-                        </div>
-                        <p class="text-xs text-slate-400 line-clamp-2">Перший пастирський крок поваги. Проводимо анкетування, щоб дізнатися біль, потреби та бар'єри братів.</p>
-                        <!-- Деталі -->
-                        <div id="step-details-1" class="hidden pt-3 border-t border-slate-800 space-y-2 text-xs">
-                            <p class="text-slate-300 font-semibold">Ключові завдання:</p>
-                            <ul class="list-disc list-inside space-y-1 text-slate-400">
-                                <li>Зібрати дані про часові бар'єри (втома, сім'я)</li>
-                                <li>Дізнатися готовність до повної конфіденційності</li>
-                                <li>Визначити пріоритет тем (Дії, Розум, Серце)</li>
-                            </ul>
-                            <div class="bg-indigo-950/40 border border-indigo-800/40 p-2 rounded-xl mt-2 text-[11px] text-indigo-300">
-                                <strong>Пастирська цінність:</strong> «Твій голос і твої виклики важливі для нас!» (Вияв любові як слуги).
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- КРОК 2 -->
-                <div onclick="toggleStepDetails(2)" id="step-card-2" class="bg-slate-900 border border-indigo-500/40 hover:border-indigo-400 rounded-2xl p-5 cursor-pointer transition-all duration-300 relative overflow-hidden shadow-lg group">
-                    <div class="absolute top-0 right-0 bg-indigo-600/20 text-indigo-400 px-3 py-1 text-xs font-bold rounded-bl-xl border-l border-b border-indigo-500/20">В РОБОТІ</div>
-                    <div class="space-y-3">
-                        <div class="text-slate-400 font-extrabold text-xs tracking-wider uppercase">КРОК 2</div>
-                        <div class="flex items-center space-x-2">
-                            <span class="p-1.5 bg-indigo-500/10 text-indigo-400 rounded-lg"><i class="fa-solid fa-cubes"></i></span>
-                            <h3 class="font-bold text-slate-100 group-hover:text-indigo-400 transition-colors">Фундамент: Ц-М-І</h3>
-                        </div>
-                        <p class="text-xs text-slate-400 line-clamp-2">Будуємо чітку структуру Цілей, Методів та Інструментів (Правила 4-П, залізна конфіденційність та 90 хв).</p>
-                        <!-- Деталі -->
-                        <div id="step-details-2" class="hidden pt-3 border-t border-slate-800 space-y-2 text-xs">
-                            <p class="text-slate-300 font-semibold">Ключові складові:</p>
-                            <ul class="list-disc list-inside space-y-1 text-slate-400">
-                                <li>Цілі: Спільнота, Поклоніння, Навчання, Місія</li>
-                                <li>Методи: Дії, Розум, Серце (Тріпп, Келлер)</li>
-                                <li>Інструменти: Практичність, Паритет, Підтримка, Прийняття</li>
-                            </ul>
-                            <div class="bg-indigo-950/40 border border-indigo-800/40 p-2 rounded-xl mt-2 text-[11px] text-indigo-300">
-                                <strong>Пастирська цінність:</strong> Межі створюють безпеку. Регламент 90 хвилин захищає сімейний вечір чоловіка.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- КРОК 3 -->
-                <div onclick="toggleStepDetails(3)" id="step-card-3" class="bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 cursor-pointer transition-all duration-300 group">
-                    <div class="space-y-3">
-                        <div class="text-slate-500 font-extrabold text-xs tracking-wider uppercase">КРОК 3</div>
-                        <div class="flex items-center space-x-2">
-                            <span class="p-1.5 bg-slate-800 text-slate-400 rounded-lg"><i class="fa-solid fa-code-merge"></i></span>
-                            <h3 class="font-bold text-slate-200 group-hover:text-slate-100 transition-colors">Узгодження Ц-М-І з Анкетою</h3>
-                        </div>
-                        <p class="text-xs text-slate-400 line-clamp-2">Коригуємо загальне бачення на основі отриманих відповідей та болю реальних 45 братів.</p>
-                        <!-- Деталі -->
-                        <div id="step-details-3" class="hidden pt-3 border-t border-slate-800 space-y-2 text-xs">
-                            <p class="text-slate-300 font-semibold">План реалізації:</p>
-                            <ul class="list-disc list-inside space-y-1 text-slate-400">
-                                <li>Аналіз відхилень: де наші плани розходяться з реальністю</li>
-                                <li>Спільний аналіз Едуарда, Сергія за допомогою ШІ</li>
-                                <li>Адаптація тематичних напрямків</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- КРОК 4 -->
-                <div onclick="toggleStepDetails(4)" id="step-card-4" class="bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 cursor-pointer transition-all duration-300 group">
-                    <div class="space-y-3">
-                        <div class="text-slate-500 font-extrabold text-xs tracking-wider uppercase">КРОК 4</div>
-                        <div class="flex items-center space-x-2">
-                            <span class="p-1.5 bg-slate-800 text-slate-400 rounded-lg"><i class="fa-brands fa-telegram"></i></span>
-                            <h3 class="font-bold text-slate-200 group-hover:text-slate-100 transition-colors">Роззброєння в ТГ-групі</h3>
-                        </div>
-                        <p class="text-xs text-slate-400 line-clamp-2">Поступово та лаконічно доносимо правила 4-П до загального кола. Знімаємо страх примусової відвертості.</p>
-                        <!-- Деталі -->
-                        <div id="step-details-4" class="hidden pt-3 border-t border-slate-800 space-y-2 text-xs">
-                            <p class="text-slate-300 font-semibold">Маркетингова стратегія:</p>
-                            <ul class="list-disc list-inside space-y-1 text-slate-400">
-                                <li>Зняття заперечень через короткі, чіткі пости</li>
-                                <li>Опора на пасторську підтримку з кафедри</li>
-                                <li>Трансляція особистої підзвітності пасторів</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- КРОК 5 -->
-                <div onclick="toggleStepDetails(5)" id="step-card-5" class="bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 cursor-pointer transition-all duration-300 group">
-                    <div class="space-y-3">
-                        <div class="text-slate-500 font-extrabold text-xs tracking-wider uppercase">КРОК 5</div>
-                        <div class="flex items-center space-x-2">
-                            <span class="p-1.5 bg-slate-800 text-slate-400 rounded-lg"><i class="fa-solid fa-comments"></i></span>
-                            <h3 class="font-bold text-slate-200 group-hover:text-slate-100 transition-colors">Наживо в мікрогрупах</h3>
-                        </div>
-                        <p class="text-xs text-slate-400 line-clamp-2">Перші живі зустрічі інвестуємо в обговорення правил довіри та «шпиталю», а не просто лекції.</p>
-                        <!-- Деталі -->
-                        <div id="step-details-5" class="hidden pt-3 border-t border-slate-800 space-y-2 text-xs">
-                            <p class="text-slate-300 font-semibold">Порядок дій:</p>
-                            <ul class="list-disc list-inside space-y-1 text-slate-400">
-                                <li>Обговорення живих прикладів порушення конфіденційності</li>
-                                <li>Практичні вправи на виявлення осуду</li>
-                                <li>Спільне прийняття Угоди братерства</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- КРОК 6 -->
-                <div onclick="toggleStepDetails(6)" id="step-card-6" class="bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-2xl p-5 cursor-pointer transition-all duration-300 group">
-                    <div class="space-y-3">
-                        <div class="text-slate-500 font-extrabold text-xs tracking-wider uppercase">КРОК 6</div>
-                        <div class="flex items-center space-x-2">
-                            <span class="p-1.5 bg-slate-800 text-slate-400 rounded-lg"><i class="fa-solid fa-sliders"></i></span>
-                            <h3 class="font-bold text-slate-200 group-hover:text-slate-100 transition-colors">Побутова організація</h3>
-                        </div>
-                        <p class="text-xs text-slate-400 line-clamp-2">Голосування за їжу, фінанси та вибір чергових ведучих через ТГ, не забираючи цінний живий час.</p>
-                        <!-- Деталі -->
-                        <div id="step-details-6" class="hidden pt-3 border-t border-slate-800 space-y-2 text-xs">
-                            <p class="text-slate-300 font-semibold">Принципи самоорганізації:</p>
-                            <ul class="list-disc list-inside space-y-1 text-slate-400">
-                                <li>Кава/піца — через добровільну скриньку</li>
-                                <li>Складання графіку адміністраторів на місяць наперед</li>
-                                <li>Швидкі ТГ-опитування по побутових деталях</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TAB 2: CMI (GOALS - METHODS - INSTRUMENTS) -->
-    <section id="tab-cmi" class="hidden space-y-8">
-        <div class="text-center max-w-2xl mx-auto space-y-2">
-            <h2 class="text-3xl font-black tracking-tight text-slate-100">Концепція Ц-М-І: Погляд Згори</h2>
-            <p class="text-sm text-slate-400">Синхронізована матриця духовних результатів та бізнес-інструментів поваги.</p>
-        </div>
-
-        <!-- Перемикач напрямків Ц-М-І -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- ЦІЛІ -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">I. ЦІЛІ</span>
-                    <span class="p-2 bg-indigo-500/10 text-indigo-400 rounded-xl text-lg"><i class="fa-solid fa-bullseye"></i></span>
-                </div>
-                <h3 class="text-lg font-bold text-slate-100">Навіщо ми збираємось?</h3>
-                <div class="space-y-3">
-                    <div class="border-l-2 border-indigo-500/40 pl-3">
-                        <h4 class="text-xs font-bold text-slate-200">Спільнота</h4>
-                        <p class="text-[11px] text-slate-400">Простір довіри «шпиталю», а не «суду». Знімаємо релігійні маски.</p>
-                    </div>
-                    <div class="border-l-2 border-indigo-500/40 pl-3">
-                        <h4 class="text-xs font-bold text-slate-200">Поклоніння</h4>
-                        <p class="text-[11px] text-slate-400">Практичне визначення центральної ролі Христа в кожній сфері життя.</p>
-                    </div>
-                    <div class="border-l-2 border-indigo-500/40 pl-3">
-                        <h4 class="text-xs font-bold text-slate-200">Навчання/Виховання</h4>
-                        <p class="text-[11px] text-slate-400">Перехід від інтелектуальної теорії до практичного учнівства.</p>
-                    </div>
-                    <div class="border-l-2 border-indigo-500/40 pl-3">
-                        <h4 class="text-xs font-bold text-slate-200">Місія</h4>
-                        <p class="text-[11px] text-slate-400">Спорядження чоловіків для втілення біблійних принципів у родинах, праці, церкві.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- МЕТОДИ -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-extrabold text-purple-400 uppercase tracking-widest">II. МЕТОДИ</span>
-                    <span class="p-2 bg-purple-500/10 text-purple-400 rounded-xl text-lg"><i class="fa-solid fa-gears"></i></span>
-                </div>
-                <h3 class="text-lg font-bold text-slate-100">Як ми це робимо?</h3>
-                <div class="space-y-4">
-                    <div class="p-3 bg-slate-950/60 rounded-xl space-y-1">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-purple-300">ДІЇ (Практичне християнство)</span>
-                        </div>
-                        <p class="text-[11px] text-slate-400">Розбір повсякденних викликів, спільна молитва, добровільна звітність.</p>
-                    </div>
-                    <div class="p-3 bg-slate-950/60 rounded-xl space-y-1">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-amber-300">РОЗУМ (Складне богослів'я)</span>
-                        </div>
-                        <p class="text-[11px] text-slate-400">Ставимо гострі питання, досліджуємо апологетику, вчимося впевнено відстоювати віру.</p>
-                    </div>
-                    <div class="p-3 bg-slate-950/60 rounded-xl space-y-1">
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-emerald-300">СЕРЦЕ (Християнська антропологія)</span>
-                        </div>
-                        <p class="text-[11px] text-slate-400">Досліджуємо функціонування душі та емоцій. Праці П. Тріппа, Т. Келлера, Т. Расулова.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ІНСТРУМЕНТИ -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest">III. ІНСТРУМЕНТИ</span>
-                    <span class="p-2 bg-emerald-500/10 text-emerald-400 rounded-xl text-lg"><i class="fa-solid fa-wrench"></i></span>
-                </div>
-                <h3 class="text-lg font-bold text-slate-100">Наші правила гри (4-П)</h3>
-                <div class="space-y-2">
-                    <div class="p-2.5 bg-slate-950/40 rounded-xl">
-                        <span class="text-[10px] font-bold text-emerald-400 block tracking-widest uppercase">П-1. Практичність</span>
-                        <span class="text-[11px] text-slate-400">Біблія — інструмент ремонту життя. Тільки те, що працює завтра.</span>
-                    </div>
-                    <div class="p-2.5 bg-slate-950/40 rounded-xl">
-                        <span class="text-[10px] font-bold text-emerald-400 block tracking-widest uppercase">П-2. Паритет</span>
-                        <span class="text-[11px] text-slate-400">Немає «начальників». Єдиний Голова — Христос. Лідер — фасилітатор, а не гуру.</span>
-                    </div>
-                    <div class="p-2.5 bg-slate-950/40 rounded-xl">
-                        <span class="text-[10px] font-bold text-emerald-400 block tracking-widest uppercase">П-3. Підтримка</span>
-                        <span class="text-[11px] text-slate-400">Зона без засудження. Можна визнати слабкість і біль без страху перед судом.</span>
-                    </div>
-                    <div class="p-2.5 bg-slate-950/40 rounded-xl">
-                        <span class="text-[10px] font-bold text-emerald-400 block tracking-widest uppercase">П-4. Прийняття</span>
-                        <span class="text-[11px] text-slate-400">Залізобетонна конфіденційність. Ніяких порад, якщо про них не просять.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- БОГОСЛОВСЬКИЙ ФІЛЬТР БЕЗПЕКИ -->
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-6">
-            <div>
-                <h3 class="text-xl font-bold text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-scale-balanced text-indigo-400"></i>
-                    Богословська Цензура: Світський vs Біблійний Менеджмент
-                </h3>
-                <p class="text-xs text-slate-400">Усі маркетингові та управлінські рішення пропущені через сито пастирської етики та свободи у Христі.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- СВІТСЬКИЙ ПІДХІД (МАНІПУЛЯЦІЇ) -->
-                <div class="border border-rose-950 bg-rose-950/10 rounded-2xl p-5 space-y-3">
-                    <div class="flex items-center space-x-2 text-rose-400 font-bold text-sm">
-                        <i class="fa-solid fa-circle-xmark"></i>
-                        <span>Світський Маніпулятивний Підхід</span>
-                    </div>
-                    <ul class="space-y-2 text-xs text-slate-400">
-                        <li class="flex items-start gap-2">
-                            <span class="text-rose-500 font-bold">•</span>
-                            <span><strong>Тиск провиною:</strong> Публічний осуд за низьке відвідування з метою змусити прийти.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-rose-500 font-bold">•</span>
-                            <span><strong>Ієрархія лідера:</strong> Лідер позиціонує себе як духовного вчителя з монополією на істину.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-rose-500 font-bold">•</span>
-                            <span><strong>Примусова відвертість:</strong> Вимоги публічно розповісти про свої гріхи "під протокол".</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- БІБЛІЙНИЙ ПІДХІД (ЧИСТЕ СЛУЖІННЯ) -->
-                <div class="border border-emerald-950 bg-emerald-950/10 rounded-2xl p-5 space-y-3">
-                    <div class="flex items-center space-x-2 text-emerald-400 font-bold text-sm">
-                        <i class="fa-solid fa-circle-check"></i>
-                        <span>Біблійна Альтернатива (Наш Стандарт)</span>
-                    </div>
-                    <ul class="space-y-2 text-xs text-slate-400">
-                        <li class="flex items-start gap-2">
-                            <span class="text-emerald-500 font-bold">•</span>
-                            <span><strong>Свобода у Христі:</strong> Любов як служіння. Кожен крок добровільний, регламент 90 хв як повага до сімей.</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-emerald-500 font-bold">•</span>
-                            <span><strong>Загальне священство:</strong> Кожен брат має право голосу та власну цінність (1 Петра 2:9).</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <span class="text-emerald-500 font-bold">•</span>
-                            <span><strong>Право на тишу:</strong> Конфіденційність залізобетонна. Жодного примусу до відвертості.</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TAB 3: PSYCHOLOGICAL SAFETY & WESLEY -->
-    <section id="tab-safety" class="hidden space-y-8">
-        <div class="bg-gradient-to-r from-slate-900 to-indigo-950/30 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6">
-            <div class="flex items-center space-x-3">
-                <span class="p-2.5 bg-indigo-500/10 text-indigo-400 rounded-2xl text-xl"><i class="fa-solid fa-shield-cat"></i></span>
-                <div>
-                    <h2 class="text-2xl font-extrabold text-slate-100">Теорія Безпеки у Служінні</h2>
-                    <p class="text-xs text-slate-400">Синтез історичних груп Веслі, 4 рівнів Тімоті Кларка та дисертації Bethel University (2024)</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Історичний досвід Веслі -->
-                <div class="bg-slate-950/60 border border-slate-800 rounded-2xl p-5 space-y-3 text-xs">
-                    <span class="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest">ДЖОН ВЕСЛІ & METODIST BANDS</span>
-                    <h3 class="text-sm font-bold text-slate-200">Чому класи Веслі змінили Англію?</h3>
-                    <p class="text-slate-400 leading-relaxed">
-                        Джон Веслі зрозумів, що велика церковна кафедра дає лише знання, але не змінює життя. Справжнє перетворення відбувалося у <strong>Class Meetings & Bands</strong> (групи до 12 та до 4-5 осіб), де діяв жорсткий регламент конфіденційності.
-                    </p>
-                    <ul class="space-y-1 text-slate-400 list-disc list-inside">
-                        <li>Головне питання: "Як почувається твоя душа цього тижня?"</li>
-                        <li>Рівність: кожні збори починалися з рівного часу на відповідь</li>
-                        <li>Вразливість лідера: лідери каялися першими, подаючи приклад</li>
-                    </ul>
-                </div>
-
-                <!-- 4 Рівні Безпеки за Тімоті Кларком -->
-                <div class="bg-slate-950/60 border border-slate-800 rounded-2xl p-5 space-y-3 text-xs">
-                    <span class="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest">ТИМОТІ КЛАРК & BETHEL UNIVERSITY 2024</span>
-                    <h3 class="text-sm font-bold text-slate-200">4 Стадії Психологічної Безпеки в Церкві</h3>
-                    <div class="space-y-2">
-                        <div class="flex items-start space-x-2">
-                            <span class="bg-slate-900 border border-indigo-500/40 text-indigo-300 rounded-lg px-1.5 py-0.5 text-[9px] font-bold">1</span>
-                            <div>
-                                <span class="font-bold text-slate-300 block">Inclusion Safety (Безпека Включення)</span>
-                                <span class="text-[10px] text-slate-400">Я є частиною групи просто тому, що я є. Жодного бар'єра для входу.</span>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <span class="bg-slate-900 border border-indigo-500/40 text-indigo-300 rounded-lg px-1.5 py-0.5 text-[9px] font-bold">2</span>
-                            <div>
-                                <span class="font-bold text-slate-300 block">Learner Safety (Безпека Навчання)</span>
-                                <span class="text-[10px] text-slate-400">Я можу ставити дурні питання, сумніватися у догмах і вчитися без сорому.</span>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <span class="bg-slate-900 border border-indigo-500/40 text-indigo-300 rounded-lg px-1.5 py-0.5 text-[9px] font-bold">3</span>
-                            <div>
-                                <span class="font-bold text-slate-300 block">Contributor Safety (Безпека Вкладу)</span>
-                                <span class="text-[10px] text-slate-400">Мій досвід корисний. Я можу запропонувати ідею чи послужити іншим.</span>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-2">
-                            <span class="bg-slate-900 border border-indigo-500/40 text-indigo-300 rounded-lg px-1.5 py-0.5 text-[9px] font-bold">4</span>
-                            <div>
-                                <span class="font-bold text-slate-300 block">Challenger Safety (Безпека Виклику)</span>
-                                <span class="text-[10px] text-slate-400">Я можу не погодитися з лідером чи богослов'ям групи без страху вигнання.</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ІНТЕРАКТИВНИЙ КАЛЬКУЛЯТОР БЕЗПЕКИ -->
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-6">
-            <div>
-                <h3 class="text-xl font-bold text-slate-100 flex items-center gap-2">
-                    <i class="fa-solid fa-calculator text-indigo-400"></i>
-                    Експрес-Калькулятор Безпеки для Едуарда
-                </h3>
-                <p class="text-xs text-slate-400">Використовуйте цей простий калькулятор на базі досліджень Емі Едмондсон, щоб перевірити реальний рівень безпеки у вашій поточній групі.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Тестові питання -->
-                <div class="space-y-4">
-                    <span class="text-xs font-bold text-slate-300 block">Оцініть твердження від 1 (Категорично НІ) до 5 (Абсолютно ТАК):</span>
-                    
-                    <div class="space-y-3">
-                        <div class="space-y-1">
-                            <label class="text-xs text-slate-400 block flex justify-between">
-                                <span>1. Якщо брат зробить помилку, у нас це не обернеться проти нього:</span>
-                                <span class="font-bold text-indigo-400" id="val-q1">3</span>
-                            </label>
-                            <input oninput="updateSafetyScore()" type="range" min="1" max="5" value="3" id="q1" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-                        </div>
-
-                        <div class="space-y-1">
-                            <label class="text-xs text-slate-400 block flex justify-between">
-                                <span>2. У нашій групі можна вільно піднімати важкі та гострі теми:</span>
-                                <span class="font-bold text-indigo-400" id="val-q2">3</span>
-                            </label>
-                            <input oninput="updateSafetyScore()" type="range" min="1" max="5" value="3" id="q2" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-                        </div>
-
-                        <div class="space-y-1">
-                            <label class="text-xs text-slate-400 block flex justify-between">
-                                <span>3. Брати в групі ніколи не засуджують та не відкидають один одного:</span>
-                                <span class="font-bold text-indigo-400" id="val-q3">3</span>
-                            </label>
-                            <input oninput="updateSafetyScore()" type="range" min="1" max="5" value="3" id="q3" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-                        </div>
-
-                        <div class="space-y-1">
-                            <label class="text-xs text-slate-400 block flex justify-between">
-                                <span>4. Тут безпечно ризикувати (бути занадто відвертим чи слабким):</span>
-                                <span class="font-bold text-indigo-400" id="val-q4">3</span>
-                            </label>
-                            <input oninput="updateSafetyScore()" type="range" min="1" max="5" value="3" id="q4" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Результати розрахунку -->
-                <div class="bg-slate-950/40 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between space-y-4">
-                    <div class="text-center space-y-2">
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ваш рівень безпеки:</span>
-                        <div class="text-5xl font-black tracking-tight text-indigo-400" id="safety-percent">60%</div>
-                        <div class="text-xs font-semibold px-3 py-1 rounded-full bg-indigo-950 text-indigo-300 border border-indigo-800/50 inline-block" id="safety-level-text">Середній рівень</div>
-                    </div>
-
-                    <div class="border-t border-slate-800 pt-4 space-y-2 text-xs">
-                        <span class="font-bold text-slate-300 block">Пастирська порада для Едуарда:</span>
-                        <p class="text-slate-400 leading-relaxed" id="safety-recommendation">
-                            Брати почуваються помірно безпечно, але все ще стримують справжній біль. Едуарду потрібно показати власну вразливість — першому поділитися особистою кризою чи втомою.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TAB 4: PLAYBOOK & KPIS -->
-    <section id="tab-playbook" class="hidden space-y-8">
-        <div class="text-center max-w-2xl mx-auto space-y-2">
-            <h2 class="text-3xl font-black tracking-tight text-slate-100">Плейбук Едуарда & Системні KPI</h2>
-            <p class="text-sm text-slate-400">Покроковий алгоритм пастирського супроводу без ризику вигорання з вимірними метриками.</p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Робоча інструкція лідеру (Плейбук) -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-6">
-                <div>
-                    <span class="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">ПРАКТИЧНИЙ АЛГОРИТМ</span>
-                    <h3 class="text-xl font-bold text-slate-100">Що саме робити лідеру спільноти?</h3>
-                </div>
-
-                <div class="space-y-4">
-                    <!-- Завдання 1 -->
-                    <div class="flex items-start space-x-3 p-3 bg-slate-950/60 rounded-xl border border-slate-800">
-                        <div class="bg-indigo-950 text-indigo-400 p-2 rounded-lg font-bold text-xs">1</div>
-                        <div class="space-y-1 text-xs">
-                            <h4 class="font-bold text-slate-200">Провести Крок 1 (Слухання) особисто</h4>
-                            <p class="text-slate-400">Едуард не запускає групи самостійно, він робить пастирські дзвінки до 45 братів із запитанням: «Маю бажання послужити тобі, чим я можу допомогти?»</p>
-                            <span class="text-[10px] text-emerald-400 font-semibold block pt-1"><i class="fa-solid fa-check-double mr-1"></i> Результат: 100% заповнених анкет у CRM.</span>
-                        </div>
-                    </div>
-
-                    <!-- Завдання 2 -->
-                    <div class="flex items-start space-x-3 p-3 bg-slate-950/60 rounded-xl border border-slate-800">
-                        <div class="bg-indigo-950 text-indigo-400 p-2 rounded-lg font-bold text-xs">2</div>
-                        <div class="space-y-1 text-xs">
-                            <h4 class="font-bold text-slate-200">Децентралізувати ведення зустрічей</h4>
-                            <p class="text-slate-400">Едуард залишається духовним куратором, але зустріч за узгодженим сценарієм веде Сергій чи інший брат-адміністратор. Едуард не веде зустрічі наодинці.</p>
-                            <span class="text-[10px] text-emerald-400 font-semibold block pt-1"><i class="fa-solid fa-check-double mr-1"></i> Результат: Зниження ризику вигорання Едуарда на 80%.</span>
-                        </div>
-                    </div>
-
-                    <!-- Завдання 3 -->
-                    <div class="flex items-start space-x-3 p-3 bg-slate-950/60 rounded-xl border border-slate-800">
-                        <div class="bg-indigo-950 text-indigo-400 p-2 rounded-lg font-bold text-xs">3</div>
-                        <div class="space-y-1 text-xs">
-                            <h4 class="font-bold text-slate-200">Тримати залізний таймінг 90 хвилин</h4>
-                            <p class="text-slate-400">Рівно о 17:00 починаємо, рівно о 18:30 молимося та закінчуємо. Хто бажає — залишається на чай, але офіційна частина закрита. Повага до родин.</p>
-                            <span class="text-[10px] text-emerald-400 font-semibold block pt-1"><i class="fa-solid fa-check-double mr-1"></i> Результат: Чоловіки планують свій час та регулярно ходять.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Контрольна панель KPI (Метрики Утримання) -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-6">
-                <div>
-                    <span class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest">БІЗНЕС-МЕТРИКИ CRM</span>
-                    <h3 class="text-xl font-bold text-slate-100">Як ми вимірюємо результат?</h3>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="p-4 bg-slate-950/60 rounded-2xl border border-slate-800 text-center space-y-1">
-                        <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider block">CRR (Коефіцієнт утримання)</span>
-                        <div class="text-3xl font-black text-indigo-400">85%</div>
-                        <p class="text-[10px] text-slate-500">Братів повертаються на 3-тю зустріч групи</p>
-                    </div>
-
-                    <div class="p-4 bg-slate-950/60 rounded-2xl border border-slate-800 text-center space-y-1">
-                        <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider block">Decentralization Ratio</span>
-                        <div class="text-3xl font-black text-purple-400">60%</div>
-                        <p class="text-[10px] text-slate-500">Зустрічей ведуться не Едуардом</p>
-                    </div>
-
-                    <div class="p-4 bg-slate-950/60 rounded-2xl border border-slate-800 text-center space-y-1">
-                        <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider block">Feedback Speed</span>
-                        <div class="text-3xl font-black text-emerald-400">&lt; 24h</div>
-                        <p class="text-[10px] text-slate-500">Отримання відгуків після зустрічі</p>
-                    </div>
-
-                    <div class="p-4 bg-slate-950/60 rounded-2xl border border-slate-800 text-center space-y-1">
-                        <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider block">Safety Index</span>
-                        <div class="text-3xl font-black text-amber-400">4.5 / 5</div>
-                        <p class="text-[10px] text-slate-500">Середня анонімна оцінка довіри в групі</p>
-                    </div>
-                </div>
-
-                <div class="bg-slate-950/60 rounded-2xl p-4 border border-slate-800 space-y-2">
-                    <span class="text-xs font-bold text-slate-300 block">Чому ці метрики працюють на користь братства?</span>
-                    <p class="text-[11px] text-slate-400 leading-relaxed">
-                        Ми не рахуємо «суху присутність» як інструмент тиску. Ми вимірюємо рівень довіри та залученості, щоб вчасно помітити брата, який закрився чи переживає внутрішню кризу. Це менеджмент як турбота.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TAB 5: SURVEY SIMULATOR (KROK 1) -->
-    <section id="tab-survey" class="hidden space-y-8">
-        <div class="text-center max-w-2xl mx-auto space-y-2">
-            <h2 class="text-3xl font-black tracking-tight text-slate-100">Симулятор Анкет & Зворотного Зв'язку</h2>
-            <p class="text-sm text-slate-400">Протестуйте, які запитання ми ставимо братам і як система миттєво обробляє результати для CRM.</p>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Блок заповнення анкети -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-6">
-                <div>
-                    <span class="text-xs font-extrabold text-indigo-400 uppercase tracking-widest">КРОК 1: ТЕСТОВИЙ БЛАНК</span>
-                    <h3 class="text-lg font-bold text-slate-100">Як виглядає анкета для брата?</h3>
-                </div>
-
-                <form id="simulator-form" onsubmit="handleFormSubmit(event)" class="space-y-4 text-xs text-slate-300">
-                    <div class="space-y-1">
-                        <label class="font-bold block">1. Які теми б'ють у твій найбільший виклик сьогодні?</label>
-                        <select id="sim-q1" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 focus:border-indigo-500 focus:outline-none">
-                            <option value="actions">Дії: практичні виклики (батьківство, робота)</option>
-                            <option value="mind">Розум: складне богослів'я та апологетика</option>
-                            <option value="heart">Серце: дослідження емоцій (П. Тріпп, Келлер)</option>
-                        </select>
-                    </div>
-
-                    <div class="space-y-1">
-                        <label class="font-bold block">2. Що є твоїм найбільшим бар'єром для відвідування зустрічей?</label>
-                        <select id="sim-q2" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 focus:border-indigo-500 focus:outline-none">
-                            <option value="time">Брак часу та сильна фізична втома</option>
-                            <option value="family">Пріоритет вечора з родиною</option>
-                            <option value="fear">Страх, що мене засудять або змусять сповідатися</option>
-                        </select>
-                    </div>
-
-                    <div class="space-y-1">
-                        <label class="font-bold block">3. Який формат спілкування для тебе є найбільш безпечним?</label>
-                        <select id="sim-q3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 focus:border-indigo-500 focus:outline-none">
-                            <option value="micro">Мала група до 6-7 осіб на рівних</option>
-                            <option value="large">Великий загальний формат (просто слухати)</option>
-                        </select>
-                    </div>
-
-                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition-all shadow-lg shadow-indigo-600/20 uppercase tracking-wider text-[11px]">
-                        <i class="fa-solid fa-paper-plane mr-1.5"></i> Надіслати тестову відповідь
-                    </button>
-                </form>
-            </div>
-
-            <!-- Блок аналізу відповідей у реальному часі -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-6 flex flex-col justify-between">
-                <div>
-                    <span class="text-xs font-extrabold text-emerald-400 uppercase tracking-widest">CRM АНАЛІТИКА ДЛЯ ЕДУАРДА</span>
-                    <h3 class="text-lg font-bold text-slate-100">Миттєве зведення результатів</h3>
-                </div>
-
-                <!-- Симульована статистика -->
-                <div class="space-y-4">
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-slate-400">Пріоритет: Християнська Антропологія (Серце)</span>
-                            <span class="text-indigo-400" id="stats-heart">45%</span>
-                        </div>
-                        <div class="w-full bg-slate-950 rounded-full h-2">
-                            <div class="bg-indigo-500 h-2 rounded-full transition-all duration-500" style="width: 45%" id="bar-heart"></div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-slate-400">Головний бар'єр: Фізична втома & Брак часу</span>
-                            <span class="text-purple-400" id="stats-barrier">55%</span>
-                        </div>
-                        <div class="w-full bg-slate-950 rounded-full h-2">
-                            <div class="bg-purple-500 h-2 rounded-full transition-all duration-500" style="width: 55%" id="bar-barrier"></div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <div class="flex justify-between text-xs font-semibold">
-                            <span class="text-slate-400">Запит на формат: Мікрогрупи до 7 осіб</span>
-                            <span class="text-emerald-400" id="stats-format">75%</span>
-                        </div>
-                        <div class="w-full bg-slate-950 rounded-full h-2">
-                            <div class="bg-emerald-500 h-2 rounded-full transition-all duration-500" style="width: 75%" id="bar-format"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Блок зворотного зв'язку / рекомендацій -->
-                <div class="bg-slate-950/60 rounded-2xl p-4 border border-slate-800 text-xs text-slate-400 space-y-1" id="crm-advice">
-                    <span class="font-bold text-slate-300 block text-xs">Автоматична системна порада:</span>
-                    Запит на «Серце» (розбір праць Тріппа) є домінантним. З огляду на бар'єр часу, Едуарду рекомендовано затвердити жорсткий регламент 90 хв і не вимагати від чоловіків підготовки до зустрічі.
-                </div>
-            </div>
-        </div>
-    </section>
-
-</main>
-
-<footer class="border-t border-slate-800 bg-slate-950/80 py-6 text-xs text-center text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 space-y-2">
-        <p>Платформа системного перезапуску розроблена в межах довгострокової екосистеми Блокноту.</p>
-        <p class="font-semibold text-slate-400">Єдиний Голова Церкви та нашого братства — Господь Ісус Христос.</p>
+<!-- ════════════════════════════════
+     HERO
+════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <i class="fa-solid fa-users"></i>
+      Братська спільнота · Щотижневий формат
     </div>
+    <h1>Місце, де знімають<br><em>маски</em></h1>
+    <p class="hero-subtitle">
+      Братська спільнота, що стає «шпиталем», а не «судом» — простір довіри, де Христос перебуває в центрі кожного виклику повсякденного чоловічого життя.
+    </p>
+
+    <!-- Цілі у вигляді карток прямо в hero -->
+    <div class="hero-goals">
+      <div class="hero-goal-card">
+        <div class="goal-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+        <h4>Спільнота</h4>
+        <p>Простір глибокої довіри. Жодних релігійних масок — лише чесне братство.</p>
+      </div>
+      <div class="hero-goal-card">
+        <div class="goal-icon"><i class="fa-solid fa-cross"></i></div>
+        <h4>Поклоніння</h4>
+        <p>Христос у центрі кожної ситуації: родина, робота, особисте.</p>
+      </div>
+      <div class="hero-goal-card">
+        <div class="goal-icon"><i class="fa-solid fa-book-open"></i></div>
+        <h4>Навчання</h4>
+        <p>Від знань — до практичного наслідування Христа.</p>
+      </div>
+      <div class="hero-goal-card">
+        <div class="goal-icon"><i class="fa-solid fa-arrows-to-circle"></i></div>
+        <h4>Місія</h4>
+        <p>Спорядження братів для втілення Слова в родині, роботі, церкві.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     РОЗДІЛ: ЦІЛІ (деталь)
+════════════════════════════════ -->
+<section class="section goals-section" id="goals">
+  <div class="section-inner">
+    <div class="section-label"><span>I. Цілі служіння</span></div>
+    <h2 class="section-title">Навіщо ми збираємось?</h2>
+    <p class="section-desc">Чотири стовпи, на яких стоїть наше братство — не програма, а живий організм довіри та зростання.</p>
+
+    <div class="goals-grid">
+      <div class="goal-card">
+        <div class="goal-num">01</div>
+        <h3>Спільнота</h3>
+        <p>Створення простору глибокої довіри, де чоловіки знімають маски. «Християнський шпиталь», а не «Суд» — ми приймаємо одне одного такими, якими є.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">02</div>
+        <h3>Поклоніння</h3>
+        <p>Практичне визначення центральної ролі Христа в кожній ситуації — в особистому житті, сім'ї, спільноті — та свідомий послух Йому.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">03</div>
+        <h3>Навчання та Виховання</h3>
+        <p>Постійне зростання у вірі. Перехід від знань до практичного наслідування Христа в реальних обставинах кожного тижня.</p>
+      </div>
+      <div class="goal-card">
+        <div class="goal-num">04</div>
+        <h3>Місія</h3>
+        <p>Споряджати братів для втілення біблійних принципів у кожній сфері відповідальності: від родинного кола до служіння в церкві та громаді.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     РОЗДІЛ: МЕТОДИ
+════════════════════════════════ -->
+<section class="section methods-section" id="methods">
+  <div class="section-inner">
+    <div class="section-label"><span>II. Методи</span></div>
+    <h2 class="section-title">Як ми це робимо?</h2>
+    <p class="section-desc">Три напрямки зустрічей, що охоплюють практику, розум і серце — жодне не важливіше за інше.</p>
+
+    <div class="methods-tabs">
+      <button class="method-tab active" onclick="switchMethod('actions', this)">
+        <i class="fa-solid fa-hammer" style="margin-right:0.4rem"></i> Дії
+      </button>
+      <button class="method-tab" onclick="switchMethod('mind', this)">
+        <i class="fa-solid fa-brain" style="margin-right:0.4rem"></i> Розум
+      </button>
+      <button class="method-tab" onclick="switchMethod('heart', this)">
+        <i class="fa-solid fa-heart" style="margin-right:0.4rem"></i> Серце
+      </button>
+    </div>
+
+    <div class="method-panels">
+
+      <!-- ДІЇ -->
+      <div class="method-panel active" id="method-actions">
+        <div class="method-main">
+          <div class="method-badge badge-actions"><i class="fa-solid fa-hammer"></i> Практичне Християнство</div>
+          <h3>Дії</h3>
+          <p class="method-essence">«Ремонт» повсякденного чоловічого життя через живий досвід братів</p>
+          <p>Розбираємо повсякденні виклики, з якими стикаємось як чоловіки. Ділимося тим, що відбувається в житті, разом розбираємось як чинити по-християнськи та молимось один за одного. За бажанням брати можуть добровільно звітувати про свої кроки та зміни.</p>
+        </div>
+        <div class="method-detail">
+          <div class="method-detail-item">
+            <h4>Що розбираємо</h4>
+            <p>Батьківство, подружні відносини, кризи на роботі, управління грошима — усе, що болить просто зараз.</p>
+          </div>
+          <div class="method-detail-item">
+            <h4>Ключовий принцип</h4>
+            <p>Тренуємося не просто знайти відповідний вірш, а прокласти стежку від «теорії» до «дієвого погляду».</p>
+          </div>
+          <div class="method-detail-item">
+            <h4>Добровільна підзвітність</h4>
+            <p>Жодного примусу. Але якщо брат хоче, щоб його тримали підзвітним — ми з радістю.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- РОЗУМ -->
+      <div class="method-panel" id="method-mind">
+        <div class="method-main">
+          <div class="method-badge badge-mind"><i class="fa-solid fa-brain"></i> Складне Богослів'я</div>
+          <h3>Розум</h3>
+          <p class="method-essence">Богословська ясність та апологетика — вміти захистити та пояснити свою віру</p>
+          <p>Ставимо гострі питання, аналізуємо складні теми, досліджуємо матеріал самостійно. Вчимося впевнено та смиренно відстоювати свою віру перед тими, хто її заперечує або ставить під сумнів.</p>
+        </div>
+        <div class="method-detail">
+          <div class="method-detail-item">
+            <h4>Гострі питання</h4>
+            <p>Чому існує зло? Чи сумісна наука та віра? Чому я вірю саме так? Жодне питання не є «надто небезпечним».</p>
+          </div>
+          <div class="method-detail-item">
+            <h4>Апологетика</h4>
+            <p>Практикуємо відповіді на заперечення з реального оточення: сусіди, колеги, дорослі діти.</p>
+          </div>
+          <div class="method-detail-item">
+            <h4>Наш стиль</h4>
+            <p>Впевнено — але смиренно. Ми не доводимо, що ми кращі. Ми ділимось, чому це справжнє.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- СЕРЦЕ -->
+      <div class="method-panel" id="method-heart">
+        <div class="method-main">
+          <div class="method-badge badge-heart"><i class="fa-solid fa-heart"></i> Християнська Антропологія</div>
+          <h3>Серце</h3>
+          <p class="method-essence">Чому ми робимо те, що робимо? Коріння мотивів, емоцій та рішень</p>
+          <p>Досліджуємо, як функціонує душа, чому ми приймаємо ті чи інші рішення та як працюють наші емоції. Обговорюємо та застосовуємо ці знання у своєму житті — через праці Пола Тріппа, Тімоті Келлера, Тімура Расулова.</p>
+        </div>
+        <div class="method-detail">
+          <div class="method-detail-item">
+            <h4>Пол Тріпп</h4>
+            <p>«Як змінюються люди» — глибоке дослідження того, як Євангеліє торкається серця зсередини, а не лише коригує зовнішню поведінку.</p>
+          </div>
+          <div class="method-detail-item">
+            <h4>Тімоті Келлер</h4>
+            <p>Розбір «ідолів серця» — прихованих богів, що конкурують із Богом у наших рішеннях.</p>
+          </div>
+          <div class="method-detail-item">
+            <h4>Тімур Расулов</h4>
+            <p>Практична психологія зміни в контексті Євангелія для пострадянської культури.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     РОЗДІЛ: ІНСТРУМЕНТИ (4-П + Регламент)
+════════════════════════════════ -->
+<section class="section instruments-section" id="instruments">
+  <div class="section-inner">
+    <div class="section-label"><span>III. Інструменти</span></div>
+    <h2 class="section-title">Наші правила гри: 4 Принципи</h2>
+    <p class="section-desc">Чотири принципи, що перетворюють збори на «шпиталь» — місце зцілення, а не перевірки.</p>
+
+    <div class="principles-grid">
+      <div class="principle-card">
+        <div class="p-letter">П</div>
+        <div class="p-badge"><i class="fa-solid fa-wrench"></i>&nbsp; П-1</div>
+        <h3>Практичність</h3>
+        <p>Ми не просто вивчаємо текст. Біблія — це інструмент «ремонту» життя. Ми спільно прокладаємо стежку від теорії до дієвого погляду на кожну конкретну ситуацію брата.</p>
+      </div>
+      <div class="principle-card">
+        <div class="p-letter">П</div>
+        <div class="p-badge"><i class="fa-solid fa-scale-balanced"></i>&nbsp; П-2</div>
+        <h3>Паритет</h3>
+        <p>У групі немає «начальників» чи «гуру». Єдиний Голова — Христос. Лідер є організатором порядку, а не лектором. Досвід кожного брата — цінність для всієї групи.</p>
+      </div>
+      <div class="principle-card">
+        <div class="p-letter">П</div>
+        <div class="p-badge"><i class="fa-solid fa-shield-heart"></i>&nbsp; П-3</div>
+        <h3>Підтримка</h3>
+        <p>Група — «шпиталь», а не «суд». Тут можна сказати про втому, сумніви та визнати помилки без страху бути засудженим. Керівник стежить, щоб осуд не блокував відвертість.</p>
+      </div>
+      <div class="principle-card">
+        <div class="p-letter">П</div>
+        <div class="p-badge"><i class="fa-solid fa-lock"></i>&nbsp; П-4</div>
+        <h3>Прийняття</h3>
+        <p>Залізобетонна конфіденційність. Те, що сказано в колі — залишається в колі. Ми не даємо порад, якщо про них не просять. Ми поважаємо шлях кожного брата.</p>
+      </div>
+    </div>
+
+    <!-- Регламент -->
+    <div class="rules-block">
+      <div class="rules-block-header">
+        <h3>Регламент та правила спілкування</h3>
+        <p>Практичні домовленості, що захищають час братів та створюють передбачуваність</p>
+      </div>
+
+      <div class="rule-item">
+        <div class="rule-icon"><i class="fa-solid fa-clock"></i></div>
+        <div>
+          <h4>Правило 90 хвилин</h4>
+          <p>Починаємо строго вчасно, закінчуємо вчасно. Чоловіки мають право планувати вечір із родиною. Регламент — це вияв любові до їхніх сімей.</p>
+        </div>
+      </div>
+
+      <div class="rule-item">
+        <div class="rule-icon"><i class="fa-solid fa-ear-listen"></i></div>
+        <div>
+          <h4>Пропорція 20 / 80</h4>
+          <p>Ведучий говорить максимум 20% часу. 80% — говорять брати. Ми вчимося слухати Бога через досвід один одного.</p>
+        </div>
+      </div>
+
+      <div class="rule-item">
+        <div class="rule-icon"><i class="fa-solid fa-hand"></i></div>
+        <div>
+          <h4>Свобода участі</h4>
+          <p>Кожен має «право на тишу» та добровільну підзвітність. Жодного маніпулятивного тиску чи примусу до відвертості.</p>
+        </div>
+      </div>
+
+      <div class="rule-item">
+        <div class="rule-icon"><i class="fa-solid fa-people-arrows"></i></div>
+        <div>
+          <h4>Розподіл лідерства</h4>
+          <p>Едуард — пастирський куратор. Зустрічі ведуть адміністратори по черзі за узгодженим сценарієм, що захищає від вигорання.</p>
+        </div>
+      </div>
+
+      <div class="rule-item">
+        <div class="rule-icon"><i class="fa-solid fa-calendar-week"></i></div>
+        <div>
+          <h4>Щотижнева регулярність</h4>
+          <p>Один і той самий фіксований день та час. Перерва навіть у два тижні руйнує динаміку довіри, яку важко відновити.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     РОЗДІЛ: 6 КРОКІВ
+════════════════════════════════ -->
+<section class="section steps-section" id="steps">
+  <div class="section-inner">
+    <div class="section-label"><span>Дорожня карта</span></div>
+    <h2 class="section-title">6 Кроків побудови братства</h2>
+    <p class="section-desc">Від першого пастирського слухання — до живого самоорганізованого братства. Натисніть на назву кроку, щоб розгорнути деталі.</p>
+
+    <div class="steps-flow">
+
+      <!-- КРОК 1 -->
+      <div class="step-row">
+        <div class="step-connector">
+          <div class="step-num-circle active">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-status">В роботі</div>
+          <h3 onclick="toggleStep(1)">Слухання серця <span style="font-size:0.75rem;color:var(--gold);margin-left:0.4rem"><i class="fa-solid fa-chevron-down"></i></span></h3>
+          <p class="step-summary">Перший пастирський крок поваги. Починаємо не з «ось є група — приходьте», а з позиції слуги: «маю бажання вам послужити, скажіть чим».</p>
+          <div class="step-details-block" id="step-1">
+            <ul>
+              <li>Дізнатися реальні теми, що б'ють у особистий біль братів</li>
+              <li>Перевірити готовність братів до конфіденційності та відвертості</li>
+              <li>Виявити головні бар'єри для відвідування (час, формат, страх осуду)</li>
+              <li>Визначити найзручніший день, час та готовність до гостинності</li>
+              <li>Дізнатися, де братам безпечніше відкриватися: мікрогрупи чи великий формат</li>
+            </ul>
+            <div class="step-note">Пастирська цінність: «Твій голос, твій біль та твої виклики важливі для цієї церкви.»</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- КРОК 2 -->
+      <div class="step-row">
+        <div class="step-connector">
+          <div class="step-num-circle active">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-status">В роботі</div>
+          <h3 onclick="toggleStep(2)">Побудова фундаменту Ц-М-І <span style="font-size:0.75rem;color:var(--gold);margin-left:0.4rem"><i class="fa-solid fa-chevron-down"></i></span></h3>
+          <p class="step-summary">У вузькому колі зацікавлених братів узгоджуємо «погляд згори»: Цілі, Методи та Інструменти служіння — ще до широкого кола.</p>
+          <div class="step-details-block" id="step-2">
+            <ul>
+              <li>Молитовне узгодження 4 цілей (Спільнота, Поклоніння, Навчання, Місія)</li>
+              <li>Визначення 3 методів: Дії, Розум, Серце</li>
+              <li>Прийняття 4-П як живих правил братства</li>
+              <li>Затвердження регламенту 90 хвилин та формату ведення</li>
+            </ul>
+            <div class="step-note">Ц-М-І — не документ для архіву, а робочий договір братів. Саме він стає основою для наступних кроків.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- КРОК 3 -->
+      <div class="step-row">
+        <div class="step-connector">
+          <div class="step-num-circle pending">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-status pending-text">Наступний крок</div>
+          <h3 onclick="toggleStep(3)">Узгодження Ц-М-І з анкетою <span style="font-size:0.75rem;color:var(--muted-light);margin-left:0.4rem"><i class="fa-solid fa-chevron-down"></i></span></h3>
+          <p class="step-summary">Коригуємо загальне бачення на основі реальних відповідей братів. Де наші плани розходяться з реальністю — там ми адаптуємось.</p>
+          <div class="step-details-block" id="step-3">
+            <ul>
+              <li>Аналіз відхилень: де наше бачення розходиться з болем братів</li>
+              <li>Едуард та Сергій аналізують результати (за допомогою ШІ) та готують висновки</li>
+              <li>Адаптація тематичних напрямків під реальні пріоритети братства</li>
+              <li>Для потреб, що не вписуються в структуру — шукаємо інші ресурси</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- КРОК 4 -->
+      <div class="step-row">
+        <div class="step-connector">
+          <div class="step-num-circle pending">4</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-status pending-text">Наступний крок</div>
+          <h3 onclick="toggleStep(4)">Пояснення Ц-М-І в ТГ-групі <span style="font-size:0.75rem;color:var(--muted-light);margin-left:0.4rem"><i class="fa-solid fa-chevron-down"></i></span></h3>
+          <p class="step-summary">Брати повинні чітко розуміти, куди їх запрошують. Інформаційний вакуум породжує вигадки та відмову.</p>
+          <div class="step-details-block" id="step-4">
+            <ul>
+              <li>Поступове, стисле пояснення цілей та правил через Telegram</li>
+              <li>Сергій готує короткий контент, що роззброює страх примусової відвертості</li>
+              <li>Едуард особисто спілкується з братами — пастирський підхід</li>
+              <li>Щира та авторитетна підтримка пасторів із кафедри (до 50% успіху проекту)</li>
+            </ul>
+            <div class="step-note">Якщо пастори не демонструють власної потреби в підзвітності — церква зчитує це інтуїтивно і ігнорує формат.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- КРОК 5 -->
+      <div class="step-row">
+        <div class="step-connector">
+          <div class="step-num-circle pending">5</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-status pending-text">Наступний крок</div>
+          <h3 onclick="toggleStep(5)">Живі зустрічі: будуємо спільноту <span style="font-size:0.75rem;color:var(--muted-light);margin-left:0.4rem"><i class="fa-solid fa-chevron-down"></i></span></h3>
+          <p class="step-summary">Перші зустрічі інвестуємо не в лекції, а в побудову самих засад братської довіри.</p>
+          <div class="step-details-block" id="step-5">
+            <ul>
+              <li>Обговорення принципів «шпиталю» на живих прикладах із реального досвіду</li>
+              <li>Практичні вправи на виявлення осуду та реакції на вразливість</li>
+              <li>Спільне прийняття угоди братства — не формально, а щиро</li>
+              <li>Якщо ми будуємо маленьке суспільство — його треба саме будувати, а не просто проводити</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- КРОК 6 -->
+      <div class="step-row">
+        <div class="step-connector">
+          <div class="step-num-circle pending">6</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <div class="step-status pending-text">Наступний крок</div>
+          <h3 onclick="toggleStep(6)">Побутова самоорганізація <span style="font-size:0.75rem;color:var(--muted-light);margin-left:0.4rem"><i class="fa-solid fa-chevron-down"></i></span></h3>
+          <p class="step-summary">Дрібні організаційні деталі — через Telegram, щоб не витрачати живий час братства на побут.</p>
+          <div class="step-details-block" id="step-6">
+            <ul>
+              <li>Голосування за їжу, фінанси, дати — через ТГ-опитування</li>
+              <li>Кава/піца — через добровільну скриньку, не навантажуючи бюджет церкви</li>
+              <li>Черговість ведучих — складається на місяць наперед</li>
+              <li>На живих зустрічах затверджуємо лише системні рішення, що впливають на всіх</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     РОЗДІЛ: ПСИХОЛОГІЧНА БЕЗПЕКА
+════════════════════════════════ -->
+<section class="section safety-section" id="safety">
+  <div class="section-inner">
+    <div class="section-label"><span>Основа довіри</span></div>
+    <h2 class="section-title">Чотири рівні психологічної безпеки</h2>
+    <p class="section-desc">На основі досліджень Тімоті Кларка та дисертації Bethel University (2024) — модель, що пояснює, чому чоловіки приходять і відкриваються.</p>
+
+    <div class="safety-grid">
+      <div class="safety-card">
+        <div class="safety-num">1</div>
+        <h4>Безпека Включення</h4>
+        <p>Я є частиною групи просто тому, що я є. Жодного бар'єра для входу. Ніхто не перевіряє мій духовний «рівень».</p>
+      </div>
+      <div class="safety-card">
+        <div class="safety-num">2</div>
+        <h4>Безпека Навчання</h4>
+        <p>Я можу ставити «дурні» питання, сумніватися у догмах і вчитися без сорому. Сумнів — це не гріх.</p>
+      </div>
+      <div class="safety-card">
+        <div class="safety-num">3</div>
+        <h4>Безпека Вкладу</h4>
+        <p>Мій досвід корисний. Я можу запропонувати ідею, поділитись кризою чи послужити іншому брату.</p>
+      </div>
+      <div class="safety-card">
+        <div class="safety-num">4</div>
+        <h4>Безпека Виклику</h4>
+        <p>Я можу не погодитись із лідером чи загальноприйнятим поглядом без страху бути відкинутим.</p>
+      </div>
+    </div>
+
+    <div class="wesley-block">
+      <p>Братські зустрічі — це добрий початок і важливий простір спільноти. Але там, де брати вже готові йти глибше, ми хочемо побачити щось менше і тісніше: невеликі учнівські групи — Д-групи — де троє чи четверо братів зустрічаються регулярно, не для програми, а одне для одного. Місце, де можна говорити про те, про що не скажеш у великому колі.</p>
+      <p style="margin-top:1rem; color: rgba(255,255,255,0.5);">Братська зустріч у цьому баченні — це загальний простір для всього братства: свята, спільні теми, знайомство. А Д-група — це місце реального зростання. Ми не поспішаємо, але тримаємо цей напрямок у полі зору.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     FOOTER
+════════════════════════════════ -->
+<footer>
+  <p>Внутрішній документ братської спільноти · RechurchKyiv</p>
+  <strong>Єдиний Голова Церкви та нашого братства — Господь Ісус Христос</strong>
 </footer>
 
 <script>
-    // Ініціалізація та керування вкладками
-    function switchTab(tabId) {
-        // Приховати всі вкладки
-        const tabs = ['dashboard', 'cmi', 'safety', 'playbook', 'survey'];
-        tabs.forEach(t => {
-            document.getElementById(`tab-${t}`).classList.add('hidden');
-            
-            // Скинути стилі навігації (десктоп)
-            const btn = document.getElementById(`nav-${t}`);
-            if (btn) {
-                btn.className = "px-3 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider tab-transition text-slate-400 hover:text-slate-100 hover:bg-slate-800";
-            }
+  function switchMethod(id, btn) {
+    document.querySelectorAll('.method-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.method-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('method-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
 
-            // Скинути стилі навігації (мобільна)
-            const mobBtn = document.getElementById(`mob-nav-${t}`);
-            if (mobBtn) {
-                mobBtn.className = "flex-shrink-0 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider text-slate-400";
-            }
-        });
-
-        // Показати активну вкладку
-        document.getElementById(`tab-${tabId}`).classList.remove('hidden');
-
-        // Підсвітити активну кнопку (десктоп)
-        const activeBtn = document.getElementById(`nav-${tabId}`);
-        if (activeBtn) {
-            activeBtn.className = "px-3 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider tab-transition text-indigo-400 bg-slate-800/80 border border-indigo-500/30";
-        }
-
-        // Підсвітити активну кнопку (мобільна)
-        const activeMobBtn = document.getElementById(`mob-nav-${tabId}`);
-        if (activeMobBtn) {
-            activeMobBtn.className = "flex-shrink-0 px-3 py-2 rounded-lg text-[10px] font-bold uppercase tracking-wider text-indigo-400 bg-slate-800/80";
-        }
-    }
-
-    // Розгортання деталей кроків
-    function toggleStepDetails(stepNum) {
-        const detailsEl = document.getElementById(`step-details-${stepNum}`);
-        const cardEl = document.getElementById(`step-card-${stepNum}`);
-        
-        if (detailsEl.classList.contains('hidden')) {
-            detailsEl.classList.remove('hidden');
-            cardEl.classList.add('border-indigo-500');
-        } else {
-            detailsEl.classList.add('hidden');
-            // Якщо крок не активний, прибираємо підсвітку межі
-            if (stepNum > 2) {
-                cardEl.classList.remove('border-indigo-500');
-            }
-        }
-    }
-
-    function updateSafetyScore() {
-        const q1 = parseInt(document.getElementById('q1').value);
-        const q2 = parseInt(document.getElementById('q2').value);
-        const q3 = parseInt(document.getElementById('q3').value);
-        const q4 = parseInt(document.getElementById('q4').value);
-
-        // Відображення значень повзунків
-        document.getElementById('val-q1').innerText = q1;
-        document.getElementById('val-q2').innerText = q2;
-        document.getElementById('val-q3').innerText = q3;
-        document.getElementById('val-q4').innerText = q4;
-
-        // Розрахунок відсотка безпеки (макс сума 20)
-        const total = q1 + q2 + q3 + q4;
-        const percent = Math.round((total / 20) * 100);
-
-        const scoreEl = document.getElementById('safety-percent');
-        const textEl = document.getElementById('safety-level-text');
-        const recEl = document.getElementById('safety-recommendation');
-
-        scoreEl.innerText = `${percent}%`;
-
-        // Оцінка рівня та рекомендація
-        if (percent < 45) {
-            textEl.innerText = "Низький рівень безпеки (Криза довіри)";
-            textEl.className = "text-xs font-semibold px-3 py-1 rounded-full bg-rose-950 text-rose-300 border border-rose-800/50 inline-block";
-            recEl.innerHTML = "<strong>Термінове пастирське втручання!</strong> Брати закриті й бояться висловити свою думку. Едуарду потрібно негайно зупинити будь-які спроби 'тиску на сумління'. Необхідно задекларувати та суворо дотримуватися правила залізобетонної конфіденційності.";
-        } else if (percent < 75) {
-            textEl.innerText = "Середній рівень безпеки (Помірна довіра)";
-            textEl.className = "text-xs font-semibold px-3 py-1 rounded-full bg-indigo-950 text-indigo-300 border border-indigo-800/50 inline-block";
-            recEl.innerHTML = "Брати почуваються помірно безпечно, але все ще стримують справжній біль. Едуарду потрібно показати власну вразливість — першому поділитися особистою кризою чи втомою, запускаючи <i>Inclusion</i> та <i>Learner Safety</i>.";
-        } else {
-            textEl.innerText = "Високий рівень безпеки (Атмосфера Шпиталю)";
-            textEl.className = "text-xs font-semibold px-3 py-1 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800/50 inline-block";
-            recEl.innerHTML = "<strong>Чудовий результат!</strong> Брати вільно діляться викликами, сумнівами й апологетичними питаннями. Група досягла стадії <i>Challenger Safety</i>. Наступний крок — спорядження для місії за межами групи.";
-        }
-    }
-
-    // Дефолтні ваги для статистики
-    let totalSubmissions = 20;
-    let heartCount = 9;
-    let actionsCount = 7;
-    let mindCount = 4;
-
-    let timeBarrier = 11;
-    let familyBarrier = 6;
-    let fearBarrier = 3;
-
-    let microFormat = 15;
-    let largeFormat = 5;
-
-    function handleFormSubmit(event) {
-        event.preventDefault();
-
-        const q1 = document.getElementById('sim-q1').value;
-        const q2 = document.getElementById('sim-q2').value;
-        const q3 = document.getElementById('sim-q3').value;
-
-        // Збільшуємо лічильники
-        totalSubmissions++;
-        if (q1 === 'heart') heartCount++;
-        else if (q1 === 'actions') actionsCount++;
-        else mindCount++;
-
-        if (q2 === 'time') timeBarrier++;
-        else if (q2 === 'family') familyBarrier++;
-        else fearBarrier++;
-
-        if (q3 === 'micro') microFormat++;
-        else largeFormat++;
-
-        // Розраховуємо нові відсотки
-        const pHeart = Math.round((heartCount / totalSubmissions) * 100);
-        const pBarrier = Math.round((timeBarrier / totalSubmissions) * 100);
-        const pFormat = Math.round((microFormat / totalSubmissions) * 100);
-
-        // Оновлюємо інтерфейс
-        document.getElementById('stats-heart').innerText = `${pHeart}%`;
-        document.getElementById('bar-heart').style.width = `${pHeart}%`;
-
-        document.getElementById('stats-barrier').innerText = `${pBarrier}%`;
-        document.getElementById('bar-barrier').style.width = `${pBarrier}%`;
-
-        document.getElementById('stats-format').innerText = `${pFormat}%`;
-        document.getElementById('bar-format').style.width = `${pFormat}%`;
-
-        // Оновлюємо системну пораду на основі нових даних
-        const adviceEl = document.getElementById('crm-advice');
-        adviceEl.innerHTML = `
-            <span class="font-bold text-slate-300 block text-xs">Аналітика успішно оновлена (Опитано: ${totalSubmissions} братів):</span>
-            З урахуванням вашої відповіді, переважна більшість братів (${pFormat}%) вимагає формату малих мікрогруп на рівних. Головним викликом лишається втома (${pBarrier}%). Організуйте комфортне місце зустрічі поруч, забезпечте ситну, але просту гостинність і не перевантажуйте братів домашнім читанням.
-        `;
-    }
-
-    // Запуск первинного розрахунку на початку
-    window.onload = function() {
-        updateSafetyScore();
-    }
+  function toggleStep(n) {
+    const el = document.getElementById('step-' + n);
+    el.classList.toggle('open');
+  }
 </script>
 </body>
 </html>
